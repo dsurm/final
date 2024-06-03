@@ -67,9 +67,9 @@ object Form1: TForm1
   object fsClusterNum: TLabel
     Left = 243
     Top = 520
-    Width = 62
+    Width = 22
     Height = 17
-    Caption = 'Undefined'
+    Caption = 'null'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -78,11 +78,11 @@ object Form1: TForm1
     ParentFont = False
   end
   object fsType: TLabel
-    Left = 169
-    Top = 582
-    Width = 62
-    Height = 17
-    Caption = 'Undefined'
+    Left = 167
+    Top = 581
+    Width = 22
+    Height = 25
+    Caption = 'null'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -106,9 +106,9 @@ object Form1: TForm1
   object fsClusterSize: TLabel
     Left = 188
     Top = 550
-    Width = 62
+    Width = 22
     Height = 17
-    Caption = 'Undefined'
+    Caption = 'null'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -132,9 +132,9 @@ object Form1: TForm1
   object execTime: TLabel
     Left = 172
     Top = 612
-    Width = 62
+    Width = 22
     Height = 17
-    Caption = 'Undefined'
+    Caption = 'null'
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
     Font.Height = -13

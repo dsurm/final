@@ -36,12 +36,12 @@ void __fastcall TForm1::start() {
 	searchFileType->Enabled  = false;
 	isStarted = true;
 	progressBar->Position = 0;
+	Form1->execTime->Caption = 0;
 	resultStringTree->Clear();
 	startButton->Caption = L"Остановить поиск";
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::stop() {
-	Form1->execTime->Caption = 0;
 	thread->Terminate();
 	Form1->Timer1->Enabled = false;
 	volumeEdit->Enabled  = true;
