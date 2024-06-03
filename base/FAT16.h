@@ -17,7 +17,8 @@ private:
 		BYTE padding1[11];
 		uint16_t sectorSize;
 		uint8_t clasterSize;
-		BYTE padding2[5];
+		uint16_t reservedSectors;
+		BYTE padding2[3];
 		uint16_t countSectors16;
 		BYTE padding3[11];
 		uint32_t countSectors32;
@@ -26,6 +27,10 @@ private:
 protected:
 	// В разных ФС различается только процесс получения размера кластера
 	bool ReadClusterSize();
+	unsigned int sectorSize = 0;
+	unsigned int reservedSectors = 0;
+public:
+    bool ReadCluster(Cluster* item, unsigned int clusterNum);
 };
 
 

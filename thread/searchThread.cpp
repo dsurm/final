@@ -69,7 +69,7 @@ void __fastcall SearchThread::Execute()
 		writeThread->currentCluster = &currentCluster; // ѕередаЄм кластер в соседний поток
 		writeThread->DataReadyEvent->SetEvent();
 
-		while(writeThread->DataCopiedEvent->WaitFor(1000) != wrSignaled) { } // ∆дЄм секунду пока поток не прожуЄт данные
+		while(writeThread->DataCopiedEvent->WaitFor(3000) != wrSignaled) { } // ∆дЄм секунду пока поток не прожуЄт данные
 
 		writeThread->DataCopiedEvent->ResetEvent();
 	}

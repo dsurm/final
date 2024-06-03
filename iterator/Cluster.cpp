@@ -30,14 +30,15 @@ FileTypeEnum Cluster::GetFileType()
 }
 Cluster::Cluster(BYTE* data, unsigned int num, unsigned int ClusterSize)
 {
-	content = new BYTE[2048];
-	std::memcpy(content, data, sizeof(BYTE) * 2048);
-    clusterNum = num;
+	content = new BYTE[1024];
+	std::memcpy(content, data, sizeof(BYTE) * 1024);
+	clusterNum = num;
 }
+
 void Cluster::SetContent(BYTE* data, unsigned int ClusterSize)
 {
-	content = new BYTE[2048];
-    std::memcpy(content, data, sizeof(BYTE) * 2048);
+	content = new BYTE[1024];
+    std::memcpy(content, data, sizeof(BYTE) * 1024);
 }
 
 FileTypeEnum getFileTypeEnum(UnicodeString searchFileType) {

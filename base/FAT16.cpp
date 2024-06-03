@@ -34,20 +34,46 @@ bool FAT16::ReadClusterSize()
         return false;
     }
 
-    BootRecord* pBootRecord = reinterpret_cast<BootRecord*>(sector);
+	BootRecord* pBootRecord = reinterpret_cast<BootRecord*>(sector);
+    reservedSectors = static_cast<int>(pBootRecord->reservedSectors);
     unsigned int countSectors = 0;
-    if (pBootRecord->countSectors16 != 0) {
-        countSectors = static_cast<int>(pBootRecord->countSectors16);
-    }
-    else if (pBootRecord->countSectors32 != 0) {
+	if (pBootRecord->countSectors16 != 0) {
+		countSectors = static_cast<int>(pBootRecord->countSectors16);
+	}
+	else if (pBootRecord->countSectors32 != 0) {
         countSectors = static_cast<int>(pBootRecord->countSectors32);
     }
     else {
         throw std::invalid_argument("Can't get count sectors per disk");
     }
-	unsigned int sectorSize = pBootRecord->sectorSize;
+	sectorSize = pBootRecord->sectorSize;
     unsigned int sectorsPerCluster = static_cast<int>(pBootRecord->clasterSize);
     clusterSize = sectorSize * sectorsPerCluster;
     clusterCount = countSectors / sectorsPerCluster;
+    return true;
+}
+
+bool FAT16::ReadCluster(Cluster* item, unsigned int clusterNum)
+{
+    DWORD bytesRead;
+    DWORD bytesToRead = clusterSize;
+    LARGE_INTEGER sectorSizeOffset;
+    sectorSizeOffset.QuadPart = (static_cast<LONGLONG>(clusterNum) * clusterSize) + reservedSectors * sectorSize; // Смещение для размера сектора
+    BYTE* arr = new BYTE[clusterSize];
+	// Устанавливаем смещение
+    if (!SetFilePointerEx(fileHandler, sectorSizeOffset, NULL, FILE_BEGIN)) {
+        throw std::invalid_argument("Set FilePointer error");
+        CloseHandle(fileHandler);
+        return false;
+    }
+    if (!ReadFile(fileHandler, arr, clusterSize, &bytesRead, NULL))
+    {
+        throw std::invalid_argument("ReadFile error");
+        CloseHandle(fileHandler);
+        return false;
+    }
+    item->SetClusterNum(clusterNum);
+    item->SetContent(arr, clusterSize);
+    delete[] arr;
     return true;
 }

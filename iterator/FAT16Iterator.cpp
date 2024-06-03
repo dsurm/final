@@ -8,7 +8,8 @@
 
 Cluster FAT16Iterator::GetCurrent()
 {
-    Cluster* item = new Cluster();
-    fat16->ReadCluster(item, Cursor);
-    return *item;
+	Cluster* item = new Cluster();
+	fat16->ReadCluster(item, Cursor);
+
+	return *item;
 }
